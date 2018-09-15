@@ -25,6 +25,7 @@
 // look in pins.pcf for all the pin names on the TinyFPGA BX board
 module top (
     input CLK,    // 16MHz clock
+`ifndef blackice
     output USBPU,  // USB pull-up resistor
     output PIN_9,
     output PIN_10,
@@ -41,6 +42,13 @@ module top (
     assign PIN_11 = vga_red;
     assign PIN_10 = vga_green;
     assign PIN_9 = vga_blue;
+`else
+    output vga_vsync,
+    output vga_hsync,
+    output vga_red,
+    output vga_green,
+    output vga_blue);
+`endif
 
     wire pixel_clock;
     reg[9:0] xpos;

@@ -1,0 +1,6 @@
+set_io   CLK        129
+set_io   vga_hsync  8
+set_io   vga_vsync  7
+set_io   vga_red    16
+set_io   vga_green   1
+set_io   vga_blue    11

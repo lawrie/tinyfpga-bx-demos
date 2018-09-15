@@ -68,7 +68,7 @@ module VGASyncGen #(
     //
     // FILTER_RANGE: 1 (3'b001)
     //
-
+`ifndef blackice
     SB_PLL40_CORE #(.FEEDBACK_PATH("SIMPLE"),
                     .PLLOUT_SELECT("GENCLK"),
                     .DIVR(4'b0000),
@@ -97,7 +97,20 @@ module VGASyncGen #(
     V_SYNC      =   3
     V_BPORCH    =   28
     */
-
+`else
+   SB_PLL40_CORE #(
+		.FEEDBACK_PATH("SIMPLE"),
+		.DIVR(4'b1001),		// DIVR =  9
+		.DIVF(7'b1100100),	// DIVF = 100
+		.DIVQ(3'b101),		// DIVQ =  5
+		.FILTER_RANGE(3'b001)	// FILTER_RANGE = 1
+	) uut (
+		.RESETB(1'b1),
+		.BYPASS(1'b0),
+		.REFERENCECLK(clk),
+		.PLLOUTCORE(px_clk)
+		);
+`endif
     // Video structure constants.
     //
     //   Horizontal Dots          640 (activeHvideo)
